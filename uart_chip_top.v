@@ -2,18 +2,6 @@
 //==================================================================
 // uart_chip_top
 //   Chip-level wrapper that instantiates I/O pads around uart_top.
-//   Pad cells used: PADI (input), PADO (output), PADIO (bidir),
-//                    PADVDD1 (power), PADVSS1 (ground)
-//
-//   PADI  ports : PAD (pin) , C   (core-side output)
-//   PADO  ports : PAD (pin) , I   (core-side input)
-//   PADIO ports : PAD (pin) , C   (core-side output / input from pin)
-//                  I   (core-side input / output to pin)
-//                  OEN (output enable, ACTIVE LOW: 0 = drive, 1 = hi-Z)
-//
-//   NOTE: OEN polarity assumed active-low (most common convention).
-//         If your pad library uses active-high OE, invert the OEN
-//         connections below (tie to 1'b0 instead of 1'b1, etc).
 //==================================================================
 module uart_chip_top (
     // Chip-level pins
@@ -48,106 +36,72 @@ module uart_chip_top (
     wire        frame_error;
 
     //----------------------------------
-    // Input Pads
+    // Input Pads (PADI pins: PAD, OUT)
     //----------------------------------
-    PADI u_pad_clk (
-        .PAD (clk_pad),
-        .C   (clk)
+    PADI u_pad_clk        (.PAD(clk_pad),      .OUT(clk));
+    PADI u_pad_rst_n      (.PAD(rst_n_pad),    .OUT(rst_n));
+    PADI u_pad_tx_valid   (.PAD(tx_valid_pad), .OUT(tx_valid));
+
+    //----------------------------------
+    // Bidirectional Pads (PADIO pins: PAD, OEN, IN, OUT)
+    // Using instance arrays to match .io naming format [X]
+    //----------------------------------
+    PADIO u_pad_baud_div [15:0] (
+        .PAD (baud_div_pad),
+        .OUT (baud_div),
+        .IN  (16'b0),
+        .OEN (16'hFFFF)       // 1 = hi-Z (input only)
     );
 
-    PADI u_pad_rst_n (
-        .PAD (rst_n_pad),
-        .C   (rst_n)
+    PADIO u_pad_oversample_div [15:0] (
+        .PAD (oversample_div_pad),
+        .OUT (oversample_div),
+        .IN  (16'b0),
+        .OEN (16'hFFFF)       // 1 = hi-Z (input only)
     );
 
-    PADI u_pad_tx_valid (
-        .PAD (tx_valid_pad),
-        .C   (tx_valid)
-    );
-
-    //----------------------------------
-    // Bidirectional Pads - baud_div[15:0]
-    //----------------------------------
-    genvar i;
-    generate
-        for (i = 0; i < 16; i = i + 1) begin : g_baud_div_pad
-            PADIO u_pad_baud_div (
-                .PAD (baud_div_pad[i]),
-                .C   (baud_div[i]),
-                .I   (1'b0),
-                .OEN (1'b1)          // 1 = hi-Z (input only)
-            );
-        end
-    endgenerate
-
-    //----------------------------------
-    // Bidirectional Pads - oversample_div[15:0]
-    //----------------------------------
-    generate
-        for (i = 0; i < 16; i = i + 1) begin : g_oversample_div_pad
-            PADIO u_pad_oversample_div (
-                .PAD (oversample_div_pad[i]),
-                .C   (oversample_div[i]),
-                .I   (1'b0),
-                .OEN (1'b1)          // 1 = hi-Z (input only)
-            );
-        end
-    endgenerate
-
-    //----------------------------------
-    // Bidirectional Pads - tx_data[7:0]
-    //----------------------------------
-    generate
-        for (i = 0; i < 8; i = i + 1) begin : g_tx_data_pad
-            PADIO u_pad_tx_data (
-                .PAD (tx_data_pad[i]),
-                .C   (tx_data[i]),
-                .I   (1'b0),
-                .OEN (1'b1)          // 1 = hi-Z (input only)
-            );
-        end
-    endgenerate
-
-    //----------------------------------
-    // Output Pads
-    //----------------------------------
-    PADO u_pad_tx_busy (
-        .PAD (tx_busy_pad),
-        .I   (tx_busy)
-    );
-
-    PADO u_pad_rx_valid (
-        .PAD (rx_valid_pad),
-        .I   (rx_valid)
-    );
-
-    PADO u_pad_frame_error (
-        .PAD (frame_error_pad),
-        .I   (frame_error)
+    PADIO u_pad_tx_data [7:0] (
+        .PAD (tx_data_pad),
+        .OUT (tx_data),
+        .IN  (8'b0),
+        .OEN (8'hFF)          // 1 = hi-Z (input only)
     );
 
     //----------------------------------
-    // Output Pads - rx_data[7:0]
+    // Output Pads (PADO pins: PAD, IN)
     //----------------------------------
-    generate
-        for (i = 0; i < 8; i = i + 1) begin : g_rx_data_pad
-            PADO u_pad_rx_data (
-                .PAD (rx_data_pad[i]),
-                .I   (rx_data[i])
-            );
-        end
-    endgenerate
+    PADO u_pad_tx_busy     (.PAD(tx_busy_pad),     .IN(tx_busy));
+    PADO u_pad_rx_valid    (.PAD(rx_valid_pad),    .IN(rx_valid));
+    PADO u_pad_frame_error (.PAD(frame_error_pad), .IN(frame_error));
 
-    //----------------------------------
-    // Power / Ground Pads
-    //----------------------------------
-    PADVDD1 u_pad_vdd (
-        .VDD (VDD)
+    PADO u_pad_rx_data [7:0] (
+        .PAD (rx_data_pad),
+        .IN  (rx_data)
     );
 
-    PADVSS1 u_pad_vss (
-        .VSS (VSS)
-    );
+    //----------------------------------
+    // Power / Ground Pads (matching .io distribution exactly)
+    //----------------------------------
+    PADVDD1 u_pad_vdd0 (.VDD(VDD));
+    PADVDD1 u_pad_vdd1 (.VDD(VDD));
+    PADVDD1 u_pad_vdd2 (.VDD(VDD));
+    PADVDD1 u_pad_vdd3 (.VDD(VDD));
+    PADVDD1 u_pad_vdd4 (.VDD(VDD));
+
+    PADVSS1 u_pad_vss0 (.VSS(VSS));
+    PADVSS1 u_pad_vss1 (.VSS(VSS));
+    PADVSS1 u_pad_vss2 (.VSS(VSS));
+    PADVSS1 u_pad_vss3 (.VSS(VSS));
+    PADVSS1 u_pad_vss4 (.VSS(VSS));
+    PADVSS1 u_pad_vss5 (.VSS(VSS));
+
+    //----------------------------------
+    // Corner Pads for continuous pad ring routing
+    //----------------------------------
+    PADCORNER u_pad_corner_bl ();
+    PADCORNER u_pad_corner_br ();
+    PADCORNER u_pad_corner_tl ();
+    PADCORNER u_pad_corner_tr ();
 
     //----------------------------------
     // Core Logic
