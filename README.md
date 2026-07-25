@@ -166,17 +166,6 @@ Upon executing the self-checking testbench, the console output will display regr
 =========================================================
 ```
 
----
-
-## 📖 Deep-Dive Documentation Index
-
-For detailed architectural and verification engineering specifications, refer to the `docs/` directory:
-- 📄 [Architecture Specification](docs/Architecture.md)
-- 📄 [FSM Design Mechanics](docs/FSM.md)
-- 📄 [Timing & Baud Mathematics](docs/Timing.md)
-- 📄 [Waveform Verification Walkthrough](docs/Waveforms.md)
-- 📄 [Synthesis & SDC Constraints](docs/Synthesis.md)
-- 📄 [Senior ASIC Interview Q&A](docs/Interview_Questions.md)
 
 ---
 
