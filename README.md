@@ -61,22 +61,12 @@ UART_Project/
 │   ├── baud_rate_gen.v    # Parameterized 16x baud rate clock divider
 │   ├── uart_tx.v          # UART Transmitter FSM (8N1, LSB first)
 │   ├── uart_rx.v          # UART Receiver FSM (16x oversampling & glitch rejection)
+│   ├── uart_chip_top.io   # Contains information on IO Pads
+│   ├── uart_chip_top.v          # Top-level wrapper for IO Pads
 │   └── uart_top.v         # Top-level wrapper integrating Baud Gen, TX, and RX
 ├── tb/
-│   └── uart_tb.v          # Self-checking testbench with loopback & randomized stimulus
-├── sim/
-│   ├── Makefile           # iverilog build & test execution targets
-│   ├── run_iverilog.sh    # Bash script for Icarus Verilog + GTKWave workflow
-│   └── run_vcs.sh         # Bash script for Synopsys VCS compilation
-├── docs/
-│   ├── Architecture.md    # High-level architecture & module specifications
-│   ├── FSM.md             # FSM state transition diagrams and mechanics
-│   ├── Timing.md          # 16x oversampling equations & baud rate error math
-│   ├── Waveforms.md       # GTKWave verification walkthrough & signal guide
-│   ├── Synthesis.md       # SDC timing constraints, STA, & power optimization
-│   └── Interview_Questions.md # Senior ASIC interview preparation deep-dives
+│   └── tb_uart.v          # Self-checking testbench with loopback & randomized stimulus
 ├── README.md              # Project documentation & GitHub guide
-└── LICENSE                # MIT License
 ```
 
 ---
