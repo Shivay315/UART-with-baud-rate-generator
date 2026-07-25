@@ -1,103 +1,95 @@
-# =================================================================
-# uart_chip_top.io
-# I/O Pad Ring Definition File
-#
-# Format:
-#   <pad_instance_name>  <pad_cell>  <chip_pin>  <core_signal>  <side>
-#
-# side : T = Top, R = Right, B = Bottom, L = Left
-# Corners: TL = Top-Left, TR = Top-Right, BL = Bottom-Left, BR = Bottom-Right
-# =================================================================
+(globals
+	version = 3
+	io_order = clockwise
+)
 
-# ---------------- Corners --------------------
-u_pad_corner_bl     PADCORNER -                   -                    BL
-u_pad_corner_br     PADCORNER -                   -                    BR
-u_pad_corner_tl     PADCORNER -                   -                    TL
-u_pad_corner_tr     PADCORNER -                   -                    TR
+(iopad
+	(top
+		(inst name="g_rx_data_pad[0].u_pad_rx_data" cell="pc3o02" place_status=fixed)
+		(inst name="g_rx_data_pad[1].u_pad_rx_data" cell="pc3o02" place_status=fixed)
+		(inst name="g_rx_data_pad[2].u_pad_rx_data" cell="pc3o02" place_status=fixed)
+		(inst name="g_rx_data_pad[3].u_pad_rx_data" cell="pc3o02" place_status=fixed)
+		(inst name="u_pad_vdd3" cell="pvdc" place_status=fixed)
+		(inst name="g_rx_data_pad[4].u_pad_rx_data" cell="pc3o02" place_status=fixed)
+		(inst name="g_rx_data_pad[5].u_pad_rx_data" cell="pc3o02" place_status=fixed)
+		(inst name="g_rx_data_pad[6].u_pad_rx_data" cell="pc3o02" place_status=fixed)
+		(inst name="g_rx_data_pad[7].u_pad_rx_data" cell="pc3o02" place_status=fixed)
+		(inst name="u_pad_vss5" cell="pv0c" place_status=fixed)
+		(inst name="g_tx_data_pad[0].u_pad_tx_data" cell="pc3b02" place_status=fixed)
+		(inst name="g_tx_data_pad[1].u_pad_tx_data" cell="pc3b02" place_status=fixed)
+		(inst name="g_tx_data_pad[2].u_pad_tx_data" cell="pc3b02" place_status=fixed)
+		(inst name="g_tx_data_pad[3].u_pad_tx_data" cell="pc3b02" place_status=fixed)
+		(inst name="u_pad_vdd2" cell="pvdc" place_status=fixed)
+		(inst name="g_tx_data_pad[4].u_pad_tx_data" cell="pc3b02" place_status=fixed)
+		(inst name="g_tx_data_pad[5].u_pad_tx_data" cell="pc3b02" place_status=fixed)
+		(inst name="g_tx_data_pad[6].u_pad_tx_data" cell="pc3b02" place_status=fixed)
+		(inst name="g_tx_data_pad[7].u_pad_tx_data" cell="pc3b02" place_status=fixed)
+		(inst name="u_pad_vss3" cell="pv0c" place_status=fixed)
+	)
+	
+	(right
+		(inst name="g_oversample_div_pad[0].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[1].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[2].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[3].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[4].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[5].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[6].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[7].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="u_pad_vdd1" cell="pvdc" place_status=fixed)
+		(inst name="g_oversample_div_pad[8].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[9].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[10].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[11].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[12].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[13].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[14].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="g_oversample_div_pad[15].u_pad_oversample" cell="pc3b02" place_status=fixed)
+		(inst name="u_pad_vss2" cell="pv0c" place_status=fixed)
+	)
 
-# ---------------- Bottom side ----------------
-u_pad_vss0          PADVSS1   VSS                 -                    B
-u_pad_clk           PADI      clk_pad             clk                  B
-u_pad_rst_n         PADI      rst_n_pad           rst_n                B
-u_pad_vdd0          PADVDD1   VDD                 -                    B
-u_pad_tx_valid      PADI      tx_valid_pad        tx_valid             B
-u_pad_tx_busy       PADO      tx_busy_pad         tx_busy              B
-u_pad_vss1          PADVSS1   VSS                 -                    B
+	(bottom
+		(inst name="u_pad_vss0" cell="pv0c" place_status=fixed)
+		(inst name="u_pad_clk" cell="pc3d21" place_status=fixed)
+		(inst name="u_pad_rst_n" cell="pc3d21" place_status=fixed)
+		(inst name="u_pad_vdd0" cell="pvdc" place_status=fixed)
+		(inst name="u_pad_tx_valid" cell="pc3d21" place_status=fixed)
+		(inst name="u_pad_tx_busy" cell="pc3o02" place_status=fixed)
+		(inst name="u_pad_rx_valid" cell="pc3o02" place_status=fixed)
+		(inst name="u_pad_frame_error" cell="pc3o02" place_status=fixed)
+		(inst name="u_pad_vss1" cell="pv0c" place_status=fixed)
+	)
 
-# ---------------- Right side -----------------
-u_pad_tx_data[0]    PADIO     tx_data_pad[0]      tx_data[0]           R
-u_pad_tx_data[1]    PADIO     tx_data_pad[1]      tx_data[1]           R
-u_pad_tx_data[2]    PADIO     tx_data_pad[2]      tx_data[2]           R
-u_pad_tx_data[3]    PADIO     tx_data_pad[3]      tx_data[3]           R
-u_pad_vdd1          PADVDD1   VDD                 -                    R
-u_pad_tx_data[4]    PADIO     tx_data_pad[4]      tx_data[4]           R
-u_pad_tx_data[5]    PADIO     tx_data_pad[5]      tx_data[5]           R
-u_pad_tx_data[6]    PADIO     tx_data_pad[6]      tx_data[6]           R
-u_pad_tx_data[7]    PADIO     tx_data_pad[7]      tx_data[7]           R
-u_pad_vss2          PADVSS1   VSS                 -                    R
 
-# ---------------- Top side -------------------
-u_pad_rx_data[0]    PADO      rx_data_pad[0]      rx_data[0]           T
-u_pad_rx_data[1]    PADO      rx_data_pad[1]      rx_data[1]           T
-u_pad_rx_data[2]    PADO      rx_data_pad[2]      rx_data[2]           T
-u_pad_rx_data[3]    PADO      rx_data_pad[3]      rx_data[3]           T
-u_pad_vdd2          PADVDD1   VDD                 -                    T
-u_pad_rx_data[4]    PADO      rx_data_pad[4]      rx_data[4]           T
-u_pad_rx_data[5]    PADO      rx_data_pad[5]      rx_data[5]           T
-u_pad_rx_data[6]    PADO      rx_data_pad[6]      rx_data[6]           T
-u_pad_rx_data[7]    PADO      rx_data_pad[7]      rx_data[7]           T
-u_pad_rx_valid      PADO      rx_valid_pad        rx_valid             T
-u_pad_frame_error   PADO      frame_error_pad     frame_error          T
-u_pad_vss3          PADVSS1   VSS                 -                    T
-
-# ---------------- Left side -------------------
-u_pad_baud_div[0]   PADIO     baud_div_pad[0]     baud_div[0]          L
-u_pad_baud_div[1]   PADIO     baud_div_pad[1]     baud_div[1]          L
-u_pad_baud_div[2]   PADIO     baud_div_pad[2]     baud_div[2]          L
-u_pad_baud_div[3]   PADIO     baud_div_pad[3]     baud_div[3]          L
-u_pad_baud_div[4]   PADIO     baud_div_pad[4]     baud_div[4]          L
-u_pad_baud_div[5]   PADIO     baud_div_pad[5]     baud_div[5]          L
-u_pad_baud_div[6]   PADIO     baud_div_pad[6]     baud_div[6]          L
-u_pad_baud_div[7]   PADIO     baud_div_pad[7]     baud_div[7]          L
-u_pad_vdd3          PADVDD1   VDD                 -                    L
-u_pad_baud_div[8]   PADIO     baud_div_pad[8]     baud_div[8]          L
-u_pad_baud_div[9]   PADIO     baud_div_pad[9]     baud_div[9]          L
-u_pad_baud_div[10]  PADIO     baud_div_pad[10]    baud_div[10]         L
-u_pad_baud_div[11]  PADIO     baud_div_pad[11]    baud_div[11]         L
-u_pad_baud_div[12]  PADIO     baud_div_pad[12]    baud_div[12]         L
-u_pad_baud_div[13]  PADIO     baud_div_pad[13]    baud_div[13]         L
-u_pad_baud_div[14]  PADIO     baud_div_pad[14]    baud_div[14]         L
-u_pad_baud_div[15]  PADIO     baud_div_pad[15]    baud_div[15]         L
-u_pad_vss4          PADVSS1   VSS                 -                    L
-
-# ---------------- Remaining bottom (wraps back) ----------------
-u_pad_oversample_div[0]  PADIO    oversample_div_pad[0]  oversample_div[0]  B
-u_pad_oversample_div[1]  PADIO    oversample_div_pad[1]  oversample_div[1]  B
-u_pad_oversample_div[2]  PADIO    oversample_div_pad[2]  oversample_div[2]  B
-u_pad_oversample_div[3]  PADIO    oversample_div_pad[3]  oversample_div[3]  B
-u_pad_oversample_div[4]  PADIO    oversample_div_pad[4]  oversample_div[4]  B
-u_pad_oversample_div[5]  PADIO    oversample_div_pad[5]  oversample_div[5]  B
-u_pad_oversample_div[6]  PADIO    oversample_div_pad[6]  oversample_div[6]  B
-u_pad_oversample_div[7]  PADIO    oversample_div_pad[7]  oversample_div[7]  B
-u_pad_vdd4               PADVDD1  VDD                    -                  B
-u_pad_oversample_div[8]  PADIO    oversample_div_pad[8]  oversample_div[8]  B
-u_pad_oversample_div[9]  PADIO    oversample_div_pad[9]  oversample_div[9]  B
-u_pad_oversample_div[10] PADIO    oversample_div_pad[10] oversample_div[10] B
-u_pad_oversample_div[11] PADIO    oversample_div_pad[11] oversample_div[11] B
-u_pad_oversample_div[12] PADIO    oversample_div_pad[12] oversample_div[12] B
-u_pad_oversample_div[13] PADIO    oversample_div_pad[13] oversample_div[13] B
-u_pad_oversample_div[14] PADIO    oversample_div_pad[14] oversample_div[14] B
-u_pad_oversample_div[15] PADIO    oversample_div_pad[15] oversample_div[15] B
-u_pad_vss5               PADVSS1  VSS                    -                  B
+	(left
+		(inst name="g_baud_div_pad[0].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[1].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[2].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[3].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[4].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[5].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[6].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[7].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="u_pad_vdd4" cell="pvdc" place_status=fixed)
+		(inst name="g_baud_div_pad[8].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[9].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[10].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[11].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[12].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[13].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[14].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="g_baud_div_pad[15].u_pad_baud_div" cell="pc3b02" place_status=fixed)
+		(inst name="u_pad_vss4" cell="pv0c" place_status=fixed)
+	)
+)
 
 # =================================================================
 # Pad count summary
-#   PADI      : 3   (clk, rst_n, tx_valid)
-#   PADO      : 11  (tx_busy, rx_valid, frame_error, rx_data[7:0])
-#   PADIO     : 40  (tx_data[7:0], baud_div[15:0], oversample_div[15:0])
-#   PADVDD1   : 5
-#   PADVSS1   : 6
-#   PADCORNER : 4 
+#   pc3d21    : 3   (clk, rst_n, tx_valid)
+#   pc3o02    : 11  (tx_busy, rx_valid, frame_error, rx_data[7:0])
+#   pc3b02   : 40  (tx_data[7:0], baud_div[15:0], oversample_div[15:0])
+#   pvdc : 5
+#   pv0c : 6
 #   ---------------------------------------------------------------
-#   TOTAL     : 69 pads
+#   TOTAL   : 65 pads
 # =================================================================
