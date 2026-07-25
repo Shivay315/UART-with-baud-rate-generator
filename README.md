@@ -1,4 +1,4 @@
-# Production-Grade Synthesizable UART IP Core (Verilog-2001)
+# UART IP Core (Verilog-2001)
 
 [![Standard](https://img.shields.io/badge/IEEE%20Standard-Verilog--2001-blue.svg)](https://en.wikipedia.org/wiki/Verilog)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
